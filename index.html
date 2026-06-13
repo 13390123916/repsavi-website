@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雷普赛维（沈阳）流体动力科技有限公司 | Repsavi Fluid Power - 工业助力臂/平衡臂</title>
+<meta name="description" content="雷普赛维（沈阳）流体动力科技有限公司，专注工业助力臂、工具平衡臂、零重力机械臂研发制造，提供工厂人体工程学解决方案。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23dc2626'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='bold' fill='white'>R</text></svg>">
+<style>
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222222;
+  --red-primary: #dc2626;
+  --red-hover: #ef4444;
+  --red-dark: #991b1b;
+  --red-glow: rgba(220,38,38,0.15);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+  --border-color: #2a2a2a;
+  --border-red: rgba(220,38,38,0.3);
+  --gradient-hero: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 50%, rgba(220,38,38,0.08) 100%);
+  --gradient-red: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  --gradient-dark: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10,10,10,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition);
+}
+.nav.scrolled { background: rgba(10,10,10,0.98); border-bottom: 1px solid var(--border-red); }
+
+.nav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 24px;
+  height: 72px; display: flex; align-items: center; justify-content: space-between;
+}
+
+.logo {
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+}
+.logo-icon {
+  width: 44px; height: 44px; background: var(--gradient-red);
+  border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.logo-text { display: flex; flex-direction: column; }
+.logo-cn { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: 1px; line-height: 1.2; }
+.logo-en { font-size: 10px; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; }
+
+.nav-links { display: flex; list-style: none; gap: 40px; align-items: center; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration: none; font-size: 14px;
+  font-weight: 500; transition: color var(--transition); position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+  background: var(--red-primary); transition: width var(--transition);
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.lang-toggle {
+  background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary);
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer;
+  transition: all var(--transition); font-family: inherit;
+}
+.lang-toggle:hover { border-color: var(--red-primary); color: #fff; }
+.lang-toggle.active { background: var(--red-primary); border-color: var(--red-primary); color: #fff; }
+
+.menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.menu-btn span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px 0; transition: var(--transition); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  background: var(--gradient-dark);
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(220,38,38,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 80%, rgba(220,38,38,0.08) 0%, transparent 50%);
+}
+.hero-lines {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+  background-image: linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 2; padding: 120px 0 80px; }
+.hero-badge {
+  display: inline-block; background: var(--red-glow); border: 1px solid var(--border-red);
+  color: var(--red-hover); font-size: 13px; font-weight: 500; padding: 8px 20px;
+  border-radius: 20px; margin-bottom: 32px; letter-spacing: 2px;
+  animation: fadeInUp 0.8s ease;
+}
+.hero-title {
+  font-size: clamp(40px, 6vw, 72px); font-weight: 700; line-height: 1.15;
+  margin-bottom: 24px; animation: fadeInUp 0.8s 0.15s ease both;
+}
+.hero-title .hl { color: var(--red-primary); }
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px); color: var(--text-secondary);
+  max-width: 600px; margin-bottom: 40px; animation: fadeInUp 0.8s 0.3s ease both;
+}
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeInUp 0.8s 0.45s ease both; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+  border-radius: var(--radius); font-size: 15px; font-weight: 600;
+  text-decoration: none; cursor: pointer; transition: all var(--transition);
+  border: none; font-family: inherit;
+}
+.btn-primary { background: var(--gradient-red); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(220,38,38,0.4); }
+.btn-outline {
+  background: transparent; color: #fff; border: 1px solid var(--border-color);
+}
+.btn-outline:hover { border-color: var(--red-primary); background: rgba(220,38,38,0.08); }
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  margin-top: 80px; animation: fadeInUp 0.8s 0.6s ease both;
+}
+.hero-stat {
+  background: var(--bg-card); padding: 28px 32px; text-align: center;
+  border-bottom: 2px solid transparent; transition: all var(--transition);
+}
+.hero-stat:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.hero-stat:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.hero-stat:hover { border-bottom-color: var(--red-primary); background: var(--bg-card-hover); }
+.hero-stat-num { font-size: 36px; font-weight: 700; color: var(--red-primary); line-height: 1; }
+.hero-stat-unit { font-size: 16px; color: var(--red-primary); }
+.hero-stat-label { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+.scroll-indicator {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: bounce 2s infinite;
+}
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--red-primary), transparent); }
+.scroll-text { font-size: 11px; color: var(--text-muted); letter-spacing: 2px; }
+
+/* ===== SECTION COMMON ===== */
+.section { padding: 100px 0; position: relative; }
+.section-dark { background: var(--bg-secondary); }
+
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-tag {
+  display: inline-block; color: var(--red-primary); font-size: 13px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 44px); font-weight: 700; line-height: 1.3;
+  margin-bottom: 16px;
+}
+.section-desc { font-size: 16px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+/* ===== ADVANTAGES ===== */
+.advantages-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.adv-card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 36px 28px; border: 1px solid var(--border-color);
+  transition: all var(--transition); position: relative; overflow: hidden;
+}
+.adv-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gradient-red); transform: scaleX(0); transition: transform var(--transition);
+}
+.adv-card:hover { border-color: var(--border-red); transform: translateY(-4px); }
+.adv-card:hover::before { transform: scaleX(1); }
+.adv-icon {
+  width: 56px; height: 56px; border-radius: var(--radius); background: var(--red-glow);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  font-size: 24px;
+}
+.adv-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+.adv-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+/* ===== PRODUCTS ===== */
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.product-card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color); overflow: hidden;
+  transition: all var(--transition);
+}
+.product-card:hover { border-color: var(--border-red); transform: translateY(-4px); }
+.product-img {
+  height: 260px; background: var(--bg-secondary); display: flex;
+  align-items: center; justify-content: center; position: relative; overflow: hidden;
+}
+.product-img-placeholder {
+  width: 80%; height: 70%; border: 2px dashed var(--border-color);
+  border-radius: var(--radius); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  color: var(--text-muted); font-size: 13px;
+}
+.product-img-placeholder svg { opacity: 0.3; }
+.product-tag {
+  position: absolute; top: 16px; left: 16px;
+  background: var(--red-primary); color: #fff; font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 4px; letter-spacing: 1px;
+}
+.product-body { padding: 24px; }
+.product-body h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.product-body .en-name { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; }
+.product-specs { display: flex; gap: 16px; margin-bottom: 16px; }
+.product-spec {
+  flex: 1; background: var(--bg-secondary); border-radius: var(--radius);
+  padding: 10px; text-align: center;
+}
+.product-spec-val { font-size: 18px; font-weight: 700; color: var(--red-primary); }
+.product-spec-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.product-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+.product-link {
+  color: var(--red-primary); text-decoration: none; font-size: 14px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 6px; transition: gap var(--transition);
+}
+.product-link:hover { gap: 12px; }
+
+/* ===== APPLICATIONS ===== */
+.apps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.app-card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 32px 24px; border: 1px solid var(--border-color); text-align: center;
+  transition: all var(--transition); cursor: default;
+}
+.app-card:hover { border-color: var(--border-red); background: var(--bg-card-hover); }
+.app-icon {
+  width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%;
+  background: var(--red-glow); display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+}
+.app-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.app-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* ===== ABOUT ===== */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-grid p { font-size: 15px; color: var(--text-secondary); line-height: 1.9; margin-bottom: 20px; }
+.about-grid p:last-child { margin-bottom: 0; }
+.about-cards { display: flex; flex-direction: column; gap: 20px; }
+.about-card {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 28px;
+  display: flex; align-items: center; gap: 20px;
+}
+.about-card-icon {
+  width: 56px; height: 56px; border-radius: var(--radius); background: var(--red-glow);
+  display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;
+}
+.about-card-num { font-size: 24px; font-weight: 700; color: var(--red-primary); }
+.about-card-label { font-size: 13px; color: var(--text-muted); }
+
+/* ===== CTA ===== */
+.cta-section {
+  padding: 100px 0; text-align: center; position: relative; overflow: hidden;
+  background: var(--bg-secondary);
+}
+.cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(220,38,38,0.1) 0%, transparent 70%);
+}
+.cta-content { position: relative; z-index: 2; }
+.cta-content h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; margin-bottom: 16px; }
+.cta-content p { font-size: 16px; color: var(--text-secondary); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--bg-primary); border-top: 1px solid var(--border-color);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px;
+  margin-bottom: 48px;
+}
+.footer-col h4 { font-size: 14px; font-weight: 600; margin-bottom: 20px; color: #fff; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color var(--transition); }
+.footer-col ul a:hover { color: var(--red-primary); }
+.footer-brand .logo { margin-bottom: 16px; }
+.footer-brand p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+.footer-contact-item {
+  display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px;
+  font-size: 13px; color: var(--text-secondary);
+}
+.footer-contact-item .icon { color: var(--red-primary); margin-top: 2px; }
+.footer-bottom {
+  padding-top: 24px; border-top: 1px solid var(--border-color);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--text-muted);
+}
+.footer-bottom a { color: var(--text-muted); text-decoration: none; }
+.footer-bottom a:hover { color: var(--red-primary); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.95);
+  display: flex; align-items: center; justify-content: center; opacity: 0;
+  pointer-events: none; transition: opacity var(--transition);
+}
+.mobile-menu.open { opacity: 1; pointer-events: all; }
+.mobile-links { list-style: none; text-align: center; }
+.mobile-links li { margin: 24px 0; }
+.mobile-links a { color: #fff; text-decoration: none; font-size: 22px; font-weight: 600; }
+.mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: #fff; font-size: 32px; cursor: pointer; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+.fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .advantages-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-grid { grid-template-columns: 1fr 1fr; }
+  .apps-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .hero-stat { border-radius: 0 !important; }
+  .hero-stat:first-child { border-radius: var(--radius) var(--radius) 0 0 !important; }
+  .hero-stat:last-child { border-radius: 0 0 var(--radius) var(--radius) !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .nav .logo img { height: 80px !important; }
+  .footer-brand .logo img { height: 80px !important; }
+}
+@media (max-width: 768px) {
+  /* 导航栏 Logo 缩小 */
+  .nav .logo img { height: 48px !important; }
+  /* 页脚 Logo 缩小 */
+  .footer-brand .logo img { height: 60px !important; }
+  .nav-links { display: none; }
+  .menu-btn { display: block; }
+  .nav-inner { padding: 0 16px; height: auto; min-height: 56px; }
+  .lang-toggle { padding: 4px 10px; font-size: 11px; }
+  .advantages-grid { grid-template-columns: 1fr; }
+  .products-grid { grid-template-columns: 1fr; }
+  .apps-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer { padding: 48px 0 24px; }
+  .footer-grid { gap: 28px; margin-bottom: 32px; }
+  .footer-col h4 { margin-bottom: 14px; }
+  .footer-contact-item { margin-bottom: 8px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .section { padding: 56px 0; }
+  .section-header { margin-bottom: 40px; }
+  .hero-content { padding: 90px 0 50px; }
+  .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 1px; margin-top: 48px; }
+  .hero-stat { padding: 18px 12px; border-radius: 0 !important; }
+  .hero-stat-num { font-size: 26px; }
+  .hero-stat-unit { font-size: 13px; }
+  .hero-stat-label { font-size: 11px; margin-top: 4px; }
+  .hero-cta { flex-direction: column; }
+  .hero-cta .btn { text-align: center; justify-content: center; width: 100%; }
+  .hero-badge { font-size: 11px; padding: 6px 14px; margin-bottom: 20px; letter-spacing: 1px; }
+  .adv-card { padding: 24px 20px; }
+  .adv-icon { width: 44px; height: 44px; font-size: 20px; margin-bottom: 14px; }
+  .product-img { height: 200px; }
+  .product-body { padding: 18px; }
+  .product-spec-val { font-size: 15px; }
+  .cta-section { padding: 60px 0; }
+  .cta-content h2 { margin-bottom: 12px; font-size: 22px; }
+  .cta-content p { margin-bottom: 28px; font-size: 14px; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-cards { flex-direction: row !important; gap: 12px !important; overflow-x: auto; padding-bottom: 8px; }
+  .about-cards > div { min-width: 140px; flex-shrink: 0; padding: 20px !important; }
+  .about-cards > div > div:last-child > div:first-child { font-size: 20px !important; }
+  .scroll-indicator { display: none; }
+  .mobile-links a { font-size: 20px; }
+  .mobile-links li { margin: 18px 0; }
+  .cta-qr { gap: 20px !important; margin-top: 24px !important; }
+  .cta-qr img { width: 100px !important; height: 100px !important; }
+}
+@media (max-width: 480px) {
+  .nav .logo img { height: 80px !important; }
+  .footer-brand .logo img { height: 80px !important; }
+  .hero-stats { grid-template-columns: 1fr; }
+  .hero-stat { padding: 14px 16px; }
+  .apps-grid { grid-template-columns: 1fr; }
+  .about-cards { flex-direction: column !important; overflow-x: visible; }
+  .about-cards > div { min-width: auto; }
+  .container { padding: 0 16px; }
+  .hero-title { font-size: 26px; }
+  .hero-sub { font-size: 14px; }
+  .cta-content h2 { font-size: 18px; }
+  .cta-content p { font-size: 13px; }
+  .product-img img { width: 80% !important; height: 80% !important; }
+  .section-tag { font-size: 10px; }
+  .section-title { font-size: 24px; }
+  .cta-qr img { width: 90px !important; height: 90px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="雷普赛维 Repsavi" style="height:220px;width:auto;object-fit:contain;">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#products">产品中心</a></li>
+      <li><a href="#applications">应用场景</a></li>
+      <li><a href="#about">关于我们</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <button class="lang-toggle active" data-lang="zh" onclick="toggleLang('zh')">中</button>
+      <button class="lang-toggle" data-lang="en" onclick="toggleLang('en')">EN</button>
+      <button class="menu-btn" onclick="document.getElementById('mobileMenu').classList.add('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">&times;</button>
+  <ul class="mobile-links">
+    <li><a href="#home" onclick="closeMenu()">首页</a></li>
+    <li><a href="#products" onclick="closeMenu()">产品中心</a></li>
+    <li><a href="#applications" onclick="closeMenu()">应用场景</a></li>
+    <li><a href="#about" onclick="closeMenu()">关于我们</a></li>
+    <li><a href="#contact" onclick="closeMenu()">联系我们</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="container hero-content">
+    <div class="hero-badge">INDUSTRIAL ERGONOMIC SOLUTIONS</div>
+    <h1 class="hero-title">
+      让每一次操作<br><span class="hl">零重力 · 零疲劳</span>
+    </h1>
+    <p class="hero-sub">
+      雷普赛维工业助力臂，为装配线工人提供精准、安全、高效的工具平衡解决方案。
+      覆盖 2kg ~ 70kg 全负载范围，大幅提升工厂生产效率与人体工程学水平。
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">获取定制方案</a>
+      <a href="#products" class="btn btn-outline">查看产品系列</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div><span class="hero-stat-num">70</span><span class="hero-stat-unit">kg</span></div>
+        <div class="hero-stat-label">最大负载能力</div>
+      </div>
+      <div class="hero-stat">
+        <div><span class="hero-stat-num">500</span><span class="hero-stat-unit">+</span></div>
+        <div class="hero-stat-label">全球装机量</div>
+      </div>
+      <div class="hero-stat">
+        <div><span class="hero-stat-num">24/7</span></div>
+        <div class="hero-stat-label">全天候技术支持</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">向下滚动</span>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="section section-dark" id="advantages">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title">选择雷普赛维的四大理由</h2>
+      <p class="section-desc">我们不仅提供设备，更提供完整的人体工程学解决方案，助力工厂实现更高的生产效率和更低的工伤率。</p>
+    </div>
+    <div class="advantages-grid">
+      <div class="adv-card fade-in">
+        <div class="adv-icon">&#9881;</div>
+        <h3>零重力操作体验</h3>
+        <p>专利平衡系统实现工具"悬浮"操作，工人仅需2-3牛顿力即可精准操控，极大降低肌肉疲劳度。</p>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-icon">&#9733;</div>
+        <h3>定制化解决方案</h3>
+        <p>每台设备根据客户工具和应用场景量身定制，出厂即用，无需二次调试，兼容所有主流品牌工具。</p>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-icon">&#9889;</div>
+        <h3>工业级可靠性</h3>
+        <p>全金属结构，IP65防护等级，适应高温、粉尘、油污等恶劣工况，设计寿命超过10年。</p>
+      </div>
+      <div class="adv-card fade-in">
+        <div class="adv-icon">&#9730;</div>
+        <h3>全球服务网络</h3>
+        <p>覆盖30+国家的技术服务体系，提供从方案设计、安装调试到终身维护的一站式服务。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">Product Series</div>
+      <h2 class="section-title">产品系列</h2>
+      <p class="section-desc">涵盖轻型到重型全系列助力臂，满足不同工业场景的精准需求。</p>
+    </div>
+    <div class="products-grid">
+      <!-- Product 1 -->
+      <div class="product-card fade-in">
+        <div class="product-img">
+          <span class="product-tag">轻型</span>
+          <img src="product-light.png" alt="RS-L 轻型助力臂" style="width:90%;height:85%;object-fit:contain;">
+        </div>
+        <div class="product-body">
+          <h3>RS-L 系列轻型助力臂</h3>
+          <div class="en-name">RS-L Series Light-Duty Arm</div>
+          <div class="product-specs">
+            <div class="product-spec"><div class="product-spec-val">2~35</div><div class="product-spec-label">负载(kg)</div></div>
+            <div class="product-spec"><div class="product-spec-val">1200</div><div class="product-spec-label">旋转半径(mm)</div></div>
+            <div class="product-spec"><div class="product-spec-val">800</div><div class="product-spec-label">提升行程(mm)</div></div>
+          </div>
+          <p class="product-desc">专为小型工具和精密装配设计，轻巧灵活，适合电子装配、小型零件加工等轻负载场景。气控方式，操作简便。</p>
+          <a href="#contact" class="product-link">了解更多 &rarr;</a>
+        </div>
+      </div>
+      <!-- Product 2 -->
+      <div class="product-card fade-in">
+        <div class="product-img">
+          <span class="product-tag">中型</span>
+          <img src="product-light.png" alt="RS-M 中型助力臂" style="width:90%;height:85%;object-fit:contain;">
+        </div>
+        <div class="product-body">
+          <h3>RS-M 系列中型助力臂</h3>
+          <div class="en-name">RS-M Series Medium-Duty Arm</div>
+          <div class="product-specs">
+            <div class="product-spec"><div class="product-spec-val">2~50</div><div class="product-spec-label">负载(kg)</div></div>
+            <div class="product-spec"><div class="product-spec-val">2000</div><div class="product-spec-label">旋转半径(mm)</div></div>
+            <div class="product-spec"><div class="product-spec-val">1000</div><div class="product-spec-label">提升行程(mm)</div></div>
+          </div>
+          <p class="product-desc">应用最广泛的型号，覆盖汽车零部件装配、家电制造、五金加工等主流工业场景。气控操作，响应迅速。</p>
+          <a href="#contact" class="product-link">了解更多 &rarr;</a>
+        </div>
+      </div>
+      <!-- Product 3 -->
+      <div class="product-card fade-in">
+        <div class="product-img">
+          <span class="product-tag">重型</span>
+          <img src="product-heavy.png" alt="RS-H 重型助力臂" style="width:90%;height:85%;object-fit:contain;">
+        </div>
+        <div class="product-body">
+          <h3>RS-H 系列重型助力臂</h3>
+          <div class="en-name">RS-H Series Heavy-Duty Arm</div>
+          <div class="product-specs">
+            <div class="product-spec"><div class="product-spec-val">2~70</div><div class="product-spec-label">负载(kg)</div></div>
+            <div class="product-spec"><div class="product-spec-val">2000</div><div class="product-spec-label">旋转半径(mm)</div></div>
+            <div class="product-spec"><div class="product-spec-val">1000</div><div class="product-spec-label">提升行程(mm)</div></div>
+          </div>
+          <p class="product-desc">额定负载70kg，支架360°旋转，前端4×90°手动旋转，底座900×900mm。工作气压0.6-0.8MPa，适用-10°C~+45°C，噪声＜70dB。</p>
+          <a href="#contact" class="product-link">了解更多 &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="section section-dark" id="applications">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">Applications</div>
+      <h2 class="section-title">应用场景</h2>
+      <p class="section-desc">我们的助力臂产品已广泛应用于全球多个工业领域。</p>
+    </div>
+    <div class="apps-grid">
+      <div class="app-card fade-in">
+        <div class="app-icon">&#128230;</div>
+        <h4>重载搬运</h4>
+        <p>重型工件上下料、输送机间物料转运、机床装夹取放，最大承载70kg</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#128663;</div>
+        <h4>汽车制造</h4>
+        <p>发动机装配、底盘拧紧、内饰安装、车门合页安装等流水线工位</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#9881;</div>
+        <h4>机械加工</h4>
+        <p>重型打磨、钻孔、攻丝、去毛刺等工具悬吊与精准定位操作</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#9878;</div>
+        <h4>焊接作业</h4>
+        <p>焊枪悬吊平衡、焊接辅助定位、减轻长时间持枪疲劳与扭矩反冲</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#128295;</div>
+        <h4>金属制造</h4>
+        <p>钣金折弯件搬运、铸件打磨、大型金属结构件装配与翻转</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#128736;</div>
+        <h4>精密拧紧</h4>
+        <p>多轴拧紧枪悬吊、螺栓顺序紧固编程控制、扭矩吸收保护</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#9889;</div>
+        <h4>新能源</h4>
+        <p>动力电池模组搬运装配、光伏组件安装、电机定子转子组装</p>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-icon">&#9992;</div>
+        <h4>航空航天</h4>
+        <p>大型复合材料构件装配、飞机零部件精密对接与铆接辅助</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">About Us</div>
+      <h2 class="section-title">关于雷普赛维</h2>
+    </div>
+
+    <!-- 公司介绍内容 - 图文混排 -->
+    <div class="about-grid fade-in">
+      <div>
+        <p>
+          雷普赛维（沈阳）流体动力科技有限公司，坐落于中国工业重镇沈阳，是一家专注于工业人体工程学解决方案的高新技术企业。公司深耕流体动力与机械臂技术领域，致力于为全球制造业客户提供高效、安全、可靠的工业助力臂产品。
+        </p>
+        <p>
+          我们的核心产品线涵盖轻型、中型和重型工业助力臂，覆盖 2kg 至 70kg 全负载范围。每一台设备都经过严格的出厂测试，确保在各种工业环境下稳定运行。
+        </p>
+        <p>
+          依托沈阳雄厚的工业制造基础和专业的技术团队，我们为汽车制造、机械加工、航空航天、新能源等行业的客户提供从方案设计到终身维护的全生命周期服务。
+        </p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-icon">&#127891;</div>
+          <div><div class="about-card-num">15+</div><div class="about-card-label">年行业经验</div></div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">&#127758;</div>
+          <div><div class="about-card-num">30+</div><div class="about-card-label">服务国家/地区</div></div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">&#128295;</div>
+          <div><div class="about-card-num">500+</div><div class="about-card-label">累计服务企业</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg"></div>
+  <div class="container cta-content fade-in">
+    <div class="section-tag">Get In Touch</div>
+    <h2>准备好提升产线效率了吗？</h2>
+    <p>告诉我们您的需求，我们的工程师团队将在24小时内为您提供定制化方案。</p>
+    <a href="mailto:13390123916@163.com" class="btn btn-primary" style="font-size:16px;padding:16px 40px;">
+      加盟合作 &rarr;
+    </a>
+    <!-- CTA 二维码 -->
+    <div class="cta-qr" style="display:flex;justify-content:center;gap:32px;margin-top:36px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <img src="qr-tech.jpg" alt="技术支持二维码" style="width:120px;height:120px;object-fit:contain;border-radius:8px;border:1px solid #2a2a2a;background:#fff;padding:4px;">
+      </div>
+      <div style="text-align:center;">
+        <img src="qr-business.jpg" alt="商务合作二维码" style="width:120px;height:120px;object-fit:contain;border-radius:8px;border:1px solid #2a2a2a;background:#fff;padding:4px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="#" class="logo" style="margin-bottom:16px;">
+          <img src="logo.png" alt="雷普赛维 Repsavi" style="height:150px;width:auto;object-fit:contain;">
+        </a>
+        <p>专注工业助力臂与人体工程学解决方案，让每一次操作都精准、安全、高效。</p>
+      </div>
+      <div class="footer-col">
+        <h4>快速链接</h4>
+        <ul>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#products">产品中心</a></li>
+          <li><a href="#applications">应用场景</a></li>
+          <li><a href="#about">关于我们</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>产品系列</h4>
+        <ul>
+          <li><a href="#products">RS-L 轻型系列</a></li>
+          <li><a href="#products">RS-M 中型系列</a></li>
+          <li><a href="#products">RS-H 重型系列</a></li>
+          <li><a href="#contact">定制方案</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;">技术支持</div>
+          <div class="footer-contact-item">
+            <span class="icon">&#128222;</span>
+            <span>15840346048 &nbsp; 韩经理</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">&#9993;</span>
+            <span>15840346048@163.com</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;">商务合作</div>
+          <div class="footer-contact-item">
+            <span class="icon">&#128222;</span>
+            <span>13390123916 &nbsp; 王经理</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">&#9993;</span>
+            <span>13390123916@163.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 雷普赛维（沈阳）流体动力科技有限公司 All Rights Reserved.</span>
+      <span><a href="#">隐私政策</a> · <a href="#">使用条款</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Nav active link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+// Language toggle (placeholder)
+function toggleLang(lang) {
+  document.querySelectorAll('.lang-toggle').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  // TODO: implement actual bilingual logic
+}
+
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+</script>
+</body>
+</html>
