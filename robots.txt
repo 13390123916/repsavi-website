@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://13390123916.github.io/repsavi-website/sitemap.xml
